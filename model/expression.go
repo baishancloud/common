@@ -2,12 +2,14 @@ package model
 
 import (
 	"fmt"
+
 	"github.com/open-falcon/common/utils"
 )
 
 type Expression struct {
 	Id         int               `json:"id"`
 	Metric     string            `json:"metric"`
+	Field      string            `json:"field"` // default is "" , eq value.
 	Tags       map[string]string `json:"tags"`
 	Func       string            `json:"func"`       // e.g. max(#3) all(#3)
 	Operator   string            `json:"operator"`   // e.g. < !=
@@ -20,9 +22,10 @@ type Expression struct {
 
 func (this *Expression) String() string {
 	return fmt.Sprintf(
-		"<Id:%d, Metric:%s, Tags:%v, %s%s%s MaxStep:%d, P%d %s ActionId:%d>",
+		"<Id:%d, Metric:%s, Field:%s, Tags:%v, %s%s%s MaxStep:%d, P%d %s ActionId:%d>",
 		this.Id,
 		this.Metric,
+		this.Field,
 		this.Tags,
 		this.Func,
 		this.Operator,
